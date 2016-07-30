@@ -9,6 +9,8 @@
 
 use Symfony\Component\Console\Application;
 use GoStatic\Command\InitCommand;
+use GoStatic\Command\ClearCommand;
+use GoStatic\Command\StatusCommand;
 
 if (file_exists(__DIR__.'/../vendor/autoload.php')) {
     require_once __DIR__.'/../vendor/autoload.php';
@@ -21,4 +23,6 @@ if (file_exists(__DIR__.'/../vendor/autoload.php')) {
 // start the application
 $application = new Application();
 $application->add(new InitCommand());
+$application->add(new ClearCommand());
+$application->add(new StatusCommand());
 $application->run();
