@@ -66,7 +66,7 @@ class Cache
         }
 
         $this->fileName = Configuration::CACHE_DIR.'/'.sha1($this->requestedUrl).self::EXTENTION;
-        $expire = time() - $this->config->getParams()['life'];
+        $expire = time() - $this->config->getParams()['cache']['life'];
 
         if (file_exists($this->fileName)
             && filemtime($this->fileName) > $expire
