@@ -33,8 +33,11 @@ class InitCommand extends Command
         $cacheTime = $questions->ask($input, $output, $cacheTimeQuestion);
 
         $params = array(
-            'cache' => array(
-                'life' => $cacheTime,
+            Configuration::KEY_CACHE => array(
+                Configuration::KEY_TTL => $cacheTime,
+                Configuration::KEY_EXCLUDE => array(
+                    'much'
+                )
             ),
         );
 

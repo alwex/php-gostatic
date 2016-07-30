@@ -15,6 +15,11 @@ class Configuration
     const CONFIG_DIR = '.gostatic';
     const CONFIG_FILE = 'configuration.yml';
     const CACHE_DIR = '.gostatic_cache';
+
+    const KEY_CACHE = 'cache';
+    const KEY_TTL = 'ttl';
+    const KEY_EXCLUDE = 'exclude';
+
     /**
      * @var Yaml
      */

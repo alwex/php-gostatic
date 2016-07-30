@@ -38,6 +38,14 @@ class Cache
     private $fileName;
 
     /**
+     * do we cache the uri?
+     * maybe not, depending on the
+     * exclude configuration
+     * @var boolean
+     */
+    private $skip = false;
+
+    /**
      * Cache constructor.
      */
     private function __construct()
@@ -65,29 +73,43 @@ class Cache
             $this->requestedUrl .= '?'.$_SERVER['QUERY_STRING'];
         }
 
-        $this->fileName = Configuration::CACHE_DIR.'/'.sha1($this->requestedUrl).self::EXTENTION;
-        $expire = time() - $this->config->getParams()['cache']['life'];
+        $params = $this->config->getParams();
+        $excludePatterns = $params[Configuration::KEY_CACHE][Configuration::KEY_EXCLUDE];
 
-        if (file_exists($this->fileName)
-            && filemtime($this->fileName) > $expire
-        ) {
-            $content = file_get_contents($this->fileName);
-            echo $content;
-            exit();
+        foreach ($excludePatterns as $pattern) {
+            if (preg_match('/'.$pattern.'/', $this->requestedUrl)) {
+                $this->skip = true;
+            }
         }
 
-        ob_start();
+        if (!$this->skip) {
+            $this->fileName = Configuration::CACHE_DIR.'/'.sha1($this->requestedUrl).self::EXTENTION;
+            $expire = time() - $params[Configuration::KEY_CACHE][Configuration::KEY_TTL];
+
+            if (file_exists($this->fileName)
+                && filemtime($this->fileName) > $expire
+            ) {
+                $content = file_get_contents($this->fileName);
+                echo $content;
+                exit();
+            }
+
+            ob_start();
+        }
     }
 
     public function end()
     {
-        $content = ob_get_contents();
-        ob_end_clean();
+        if (!$this->skip) {
 
-        file_put_contents($this->fileName, $content);
+            $content = ob_get_contents();
+            ob_end_clean();
 
-        // write the content
-        // to the user browser
-        echo $content;
+            file_put_contents($this->fileName, $content);
+
+            // write the content
+            // to the user browser
+            echo $content;
+        }
     }
 }
