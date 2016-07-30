@@ -60,7 +60,11 @@ class Cache
 
     public function start()
     {
-        $this->requestedUrl = $_SERVER['REQUEST_URI'].'?'.$_SERVER['QUERY_STRING'];
+        $this->requestedUrl = $_SERVER['REQUEST_URI'];
+        if (array_key_exists('QUERY_STRING', $_SERVER)) {
+            $this->requestedUrl .= '?'.$_SERVER['QUERY_STRING'];
+        }
+
         $this->fileName = Configuration::CACHE_DIR.'/'.sha1($this->requestedUrl).self::EXTENTION;
         $expire = time() - $this->config->getParams()['life'];
 
