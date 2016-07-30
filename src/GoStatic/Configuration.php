@@ -40,10 +40,10 @@ class Configuration
         file_put_contents(self::CONFIG_DIR.'/'.self::CONFIG_FILE, $yamlString);
     }
 
-    private function __construct($baseUri)
+    private function __construct()
     {
-        if (file_exists($baseUri . '/' . self::CONFIG_DIR.'/'.self::CONFIG_FILE)) {
-            $this->params = Yaml::parse(file_get_contents($baseUri . '/' . self::CONFIG_DIR.'/'.self::CONFIG_FILE));
+        if (file_exists(self::CONFIG_DIR.'/'.self::CONFIG_FILE)) {
+            $this->params = Yaml::parse(file_get_contents(self::CONFIG_DIR.'/'.self::CONFIG_FILE));
         }
     }
 
