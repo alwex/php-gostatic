@@ -2,3 +2,12 @@
 /.twgit
 
 /vendor/
+/.idea/
+
+/.gostatic/
+/.gostatic_cache/
+
+/index.php
+
+Supprimerait src/
+Supprimerait tests/

@@ -25,12 +25,12 @@
   },
   "autoload": {
     "psr-4": {
-      "PhpMQ\\": "src/Gostatic"
+      "GoStatic\\": "src/GoStatic"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "PhpMQ\\": "tests/Gostatic"
+      "GoStatic\\": "tests/GoStatic"
     }
   }
 }
