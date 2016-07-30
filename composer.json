@@ -1,0 +1,36 @@
+{
+  "name": "alwex/php-gostatic",
+  "description": "simple php caching system that turn your dynamic website into a static one",
+  "authors": [
+    {
+      "name": "Alexandre GUIDET",
+      "email": "guidet.alexandre@gmail.com"
+    }
+  ],
+  "bin": [
+    "bin/gostatic"
+  ],
+  "config": {
+    "bin-dir": "bin"
+  },
+  "require": {
+    "php": ">=5.3.0",
+    "symfony/console": "^3.1",
+    "symfony/config": "^3.1",
+    "cocur/slugify": "~1.0",
+    "monolog/monolog": "^1.20"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "PhpMQ\\": "src/Gostatic"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PhpMQ\\": "tests/Gostatic"
+    }
+  }
+}
