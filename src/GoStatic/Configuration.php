@@ -62,7 +62,8 @@ class Configuration
             $this->setCacheDirectory($rootDirectory.'/'.self::CACHE_DIR);
         }
 
-        $rootDirectory = __DIR__ . '/../../..';
+        // vendor/alwex/php-gostatic/src/GoStatic/file
+        $rootDirectory = __DIR__ . '/../../../../..';
         if (is_dir($rootDirectory.'/vendor')) {
             $this->setConfigurationDirectory($rootDirectory.'/'.self::CONFIG_DIR);
             $this->setCacheDirectory($rootDirectory.'/'.self::CACHE_DIR);
