@@ -83,7 +83,7 @@ class Cache
         }
 
         if (!$this->skip) {
-            $this->fileName = Configuration::CACHE_DIR.'/'.sha1($this->requestedUrl).self::EXTENTION;
+            $this->fileName = $this->config->getCacheDirectory().'/'.sha1($this->requestedUrl).self::EXTENTION;
             $expire = time() - $params[Configuration::KEY_CACHE][Configuration::KEY_TTL];
 
             if (file_exists($this->fileName)
@@ -101,7 +101,6 @@ class Cache
     public function end()
     {
         if (!$this->skip) {
-
             $content = ob_get_contents();
             ob_end_clean();
 

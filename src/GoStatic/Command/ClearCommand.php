@@ -25,7 +25,9 @@ class ClearCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        foreach (glob(Configuration::CACHE_DIR.'/*'.Cache::EXTENTION) as $file) {
+        $configuration = Configuration::load();
+
+        foreach (glob($configuration->getCacheDirectory().'/*'.Cache::EXTENTION) as $file) {
             $output->writeln('delete: '.$file);
             unlink($file);
         }
