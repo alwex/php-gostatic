@@ -21,7 +21,7 @@ class InitCommand extends Command
     protected function configure()
     {
         $this->setName('go:init')
-            ->setDescription('Initialise the GoSatic configuration (see .gostatic/)');
+            ->setDescription('Initialise the GoStatic configuration (see [gostatic_dir]/.gostatic/)');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -29,16 +29,24 @@ class InitCommand extends Command
         /** @var $questions QuestionHelper */
         $questions = $this->getHelperSet()->get('question');
 
-        $cacheTimeQuestion = new Question("Please enter the refreshing time <info>(default:5)</info>: ", "5");
+        $cacheTimeQuestion = new Question("Please enter the TTL <info>(default:5)</info>: ", "5");
         $cacheTime = $questions->ask($input, $output, $cacheTimeQuestion);
 
         $params = array(
-            'cache' => array(
-                'life' => $cacheTime,
+            Configuration::KEY_CACHE => array(
+                Configuration::KEY_TTL => $cacheTime,
+                Configuration::KEY_EXCLUDE => array(
+                ),
+                //Configuration::KEY_ONLY => array(
+                //)
             ),
         );
 
-        Configuration::create($params);
+        $configuration = Configuration::create($params);
+
+        $output->writeln("GoStatic initialized in:");
+        $output->writeln("<info>".$configuration->getConfigurationDirectory()."</info>");
+        $output->writeln("<info>".$configuration->getCacheDirectory()."</info>");
     }
 
 }
